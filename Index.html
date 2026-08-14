@@ -3,3 +3,178 @@
     <h1>My AKA is Neo</h1>
       </body>
 </html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eat Around Kitchen - อร่อยระดับเชฟ ในราคาเป็นกันเอง</title>
+    <!-- นำเข้า Tailwind CSS สำหรับการดีไซน์ที่ทันสมัยและรองรับมือถือ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- 1. Navigation Header -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- โลโก้จำลองของร้าน -->
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-bold text-xs">
+                    EAK
+                </div>
+                <span class="text-xl font-bold tracking-tight text-gray-900">Eat Around Kitchen</span>
+            </div>
+            <a href="tel:085-395-9665" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-medium transition duration-300">
+                <i class="fas fa-phone-alt mr-2"></i>โทรเลย
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section (หน้าแรก & Value Proposition) -->
+    <section class="bg-gradient-to-r from-gray-950 to-gray-800 text-white py-16 px-4 text-center relative overflow-hidden">
+        <div class="max-w-3xl mx-auto relative z-10">
+            <span class="bg-amber-500 text-black text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">ยินดีต้อนรับ</span>
+            <!-- Value Proposition (เกณฑ์ข้อที่ 1) -->
+            <h1 class="text-3xl md:text-5xl font-bold mt-4 mb-6 leading-tight">
+                อร่อยระดับเชฟ คุณภาพพรีเมียม <br class="hidden md:inline"><span class="text-amber-400">ในราคาเป็นกันเอง</span>
+            </h1>
+            <p class="text-gray-300 text-base md:text-lg mb-8 max-w-xl mx-auto">
+                คัดสรรวัตถุดิบชั้นดี ปรุงสดใหม่ทุกจาน พร้อมเสิร์ฟหลากหลายเมนู ทั้งสเต็ก พาสต้า และอาหารจานด่วนแสนอร่อย
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#menu-catalog" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-semibold px-8 py-3 rounded-md transition duration-300">
+                    ดูเมนูแนะนำ
+                </a>
+                <a href="https://line.me/R/ti/p/@eataround" target="_blank" class="bg-green-600 hover:bg-green-700 font-semibold px-8 py-3 rounded-md transition duration-300 flex items-center justify-center">
+                    <i class="fab fa-line text-xl mr-2"></i> สั่งอาหารผ่าน LINE
+                </a>
+            </div>
+        </div>
+        <!-- ตกแต่งพื้นหลัง -->
+        <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center"></div>
+    </section>
+
+    <!-- 3. Food Catalog Section (แคตตาล็อกสินค้าพร้อมราคา - เกณฑ์ข้อที่ 2) -->
+    <section id="menu-catalog" class="max-w-6xl mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900">เมนูแนะนำยอดฮิต</h2>
+            <p class="text-gray-600 mt-2">เมนูอร่อยที่ใครมาก็ต้องสั่ง ปรุงสดใหม่จากครัวของเรา</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- เมนูที่ 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
+                <div class="h-48 bg-gray-200 bg-[url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-900">สเต็กปลาแซลมอน</h3>
+                        <span class="text-amber-600 font-semibold text-lg">320.-</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">แซลมอนนอร์เวย์ชิ้นโตย่างสุกกำลังดี เนื้อนุ่มชุ่มฉ่ำ เสิร์ฟพร้อมผักสลัดสดและเฟรนช์ฟรายส์</p>
+                </div>
+            </div>
+
+            <!-- เมนูที่ 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
+                <div class="h-48 bg-gray-200 bg-[url('https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-900">สปาเก็ตตี้คาโบนาร่า</h3>
+                        <span class="text-amber-600 font-semibold text-lg">130.-</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">สปาเก็ตตี้ซอสครีมเข้มข้น คลุกเคล้าพาเมซานชีส โรยด้วยเบคอนกรอบหอมกรุ่นต้นตำรับ</p>
+                </div>
+            </div>
+
+            <!-- เมนูที่ 3 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
+                <div class="h-48 bg-gray-200 bg-[url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-900">พอร์คชอปสเต็ก</h3>
+                        <span class="text-amber-600 font-semibold text-lg">289.-</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">สเต็กหมูพอร์คชอปติดกระดูกย่างซอสบาร์บีคิวสูตรพิเศษ เนื้อนุ่มหอมพริกไทยดำเลิศรส</p>
+                </div>
+            </div>
+
+            <!-- เมนูที่ 4 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
+                <div class="h-48 bg-gray-200 bg-[url('https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-900">ขาหมูเยอรมันคูโรบูตะ</h3>
+                        <span class="text-amber-600 font-semibold text-lg">550.-</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">ขาหมูเยอรมันทอดกรอบนอกนุ่มใน เนื้อในนุ่มฉ่ำ เสิร์ฟพร้อมน้ำจิ้มซีฟู้ดรสจัดจ้านและมันบด</p>
+                </div>
+            </div>
+
+            <!-- เมนูที่ 5 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
+                <div class="h-48 bg-gray-200 bg-[url('https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-900">ข้าวไข่ข้นราดซอสต้มยำกุ้ง</h3>
+                        <span class="text-amber-600 font-semibold text-lg">180.-</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">ข้าวสวยร้อนๆ ท็อปด้วยไข่ข้นนุ่มละมุน ราดซอสต้มยำกุ้งรสเข้มข้นสะใจสไตล์ไทยแท้</p>
+                </div>
+            </div>
+
+            <!-- เมนูที่ 6 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
+                <div class="h-48 bg-gray-200 bg-[url('https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold text-gray-900">ข้าวผัดรถไฟหมู</h3>
+                        <span class="text-amber-600 font-semibold text-lg">70.-</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">ข้าวผัดซีอิ๊วรถไฟสูตรโบราณ ผัดไฟแรงหอมกลิ่นกระทะ ใส่คะน้า มะเขือเทศ และเนื้อหมูนุ่มหมักสูตรพิเศษ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Customer Action & Info Section (ช่องทางติดต่อลูกค้า - เกณฑ์ข้อที่ 3) -->
+    <section class="bg-gray-900 text-white py-16 px-4 border-t border-gray-800">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">หิวแล้วใช่ไหม? สั่งเลย!</h2>
+                <p class="text-gray-400 mb-6">
+                    สะดวกสบายยิ่งขึ้นด้วยการสั่งซื้อและสำรองที่นั่งผ่านช่องทางออนไลน์ง่ายๆ ตลอดเวลาเปิดให้บริการของเรา
+                </p>
+                <!-- ปมกิจกรรมลูกค้าที่คลิกใช้งานได้จริง (Client Action) -->
+                <div class="space-y-4">
+                    <a href="https://line.me/R/ti/p/@eataround" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-lg transition duration-300">
+                        <i class="fab fa-line text-2xl mr-3"></i> แอด LINE สั่งอาหาร (@eataround)
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                <h3 class="text-lg font-bold mb-4 text-amber-400"><i class="fas fa-map-marker-alt mr-2"></i>ข้อมูลติดต่อร้าน</h3>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li><strong class="text-white">ที่ตั้ง:</strong> 888/2 ห้อง M10 สุขรุ่งเรือง มาร์เก็ต ถ.เลียบวงแหวนกาญจนาภิเษกฝั่งใต้ แขวงทุ่งครุ เขตทุ่งครุ กทม. 10140</li>
+                    <li><strong class="text-white">เบอร์โทรศัพท์:</strong> <a href="tel:085-395-9665" class="hover:text-amber-400">085-395-9665</a></li>
+                    <li><strong class="text-white">เวลาทำการ:</strong> จันทร์ - ศุกร์ 11.00 - 21.00 น. | เสาร์ - อาทิตย์ 10.00 - 22.00 น.</li>
+                    <li><strong class="text-white">Facebook:</strong> Eat Around Kitchen</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Footer -->
+    <footer class="bg-gray-950 text-gray-500 py-6 text-center text-xs">
+        <p>&copy; 2026 Eat Around Kitchen. All Rights Reserved. | พัฒนาขึ้นเพื่อการศึกษาในวิชา 703311</p>
+    </footer>
+
+</body>
+</html>
