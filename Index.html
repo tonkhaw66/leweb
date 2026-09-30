@@ -1,0 +1,686 @@
+HTML>
+  <BODY>
+    <!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thai Kitchen - ร้านอาหารไทยสไตล์ล้านนา</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts (Sarabun & Charm) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lanna: {
+              dark: '#1e3023',    /* เขียวขี้ม้าเข้ม */
+              primary: '#2d4a34', /* เขียวล้านนา */
+              medium: '#3d6145',  /* เขียวป่าไม้ */
+              gold: '#c59b27',    /* ทองล้านนา */
+              goldhover: '#d4af37',
+              wood: '#4a3319',    /* น้ำตาลไม้สัก */
+              woodlight: '#704f28',
+              cream: '#f9f6ee',   /* ครีมนวล */
+              softbg: '#f3efe6'
+            }
+          },
+          fontFamily: {
+            lanna: ['Charm', 'cursive', 'serif'],
+            body: ['Sarabun', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f3efe6;
+      color: #2b2b2b;
+    }
+    .font-lanna {
+      font-family: 'Charm', cursive, serif;
+    }
+    .lanna-pattern {
+      background-color: #1e3023;
+      background-image: radial-gradient(#c59b27 0.75px, transparent 0.75px), radial-gradient(#c59b27 0.75px, #1e3023 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      opacity: 0.98;
+    }
+    .wood-texture {
+      background: linear-gradient(135deg, #4a3319 0%, #2e1f0e 100%);
+    }
+    .gold-gradient {
+      background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+    }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #f3e5ab 0%, #c59b27 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lanna-border {
+      border: 2px solid #c59b27;
+      box-shadow: inset 0 0 10px rgba(197, 155, 39, 0.2);
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e3023;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c59b27;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-lanna-softbg text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Navigation Bar -->
+  <nav class="bg-lanna-dark text-white sticky top-0 z-40 border-b-2 border-lanna-gold shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToSection('hero')">
+          <div class="w-12 h-12 rounded-full border-2 border-lanna-gold bg-lanna-wood flex items-center justify-center text-lanna-gold font-bold text-2xl shadow-md">
+            <i class="fa-solid fa-utensils"></i>
+          </div>
+          <div>
+            <h1 class="font-lanna text-2xl sm:text-3xl font-bold text-gold-gradient leading-none">Thai Kitchen</h1>
+            <p class="text-xs text-amber-200/80 tracking-wider font-light">เรือนอาหารไทย สไตล์ล้านนา</p>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+          <button onclick="scrollToSection('recommended')" class="hover:text-lanna-gold transition-colors">เมนูแนะนำ</button>
+          <button onclick="scrollToSection('menu')" class="hover:text-lanna-gold transition-colors">รายการอาหารทั้งหมด</button>
+          <button onclick="scrollToSection('contact')" class="hover:text-lanna-gold transition-colors">ติดต่อเรา / แผนที่</button>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center space-x-4">
+          <!-- Cart Button -->
+          <button onclick="toggleCartModal()" class="relative bg-lanna-wood hover:bg-lanna-woodlight border border-lanna-gold text-lanna-gold px-4 py-2 rounded-lg flex items-center space-x-2 transition shadow">
+            <i class="fa-solid fa-basket-shopping text-lg"></i>
+            <span class="hidden sm:inline">ตะกร้า</span>
+            <span id="cart-count" class="bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+          </button>
+
+          <!-- Mobile menu button -->
+          <button onclick="toggleMobileMenu()" class="md:hidden text-lanna-gold focus:outline-none text-2xl">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-lanna-primary border-t border-lanna-gold/30 px-4 pt-2 pb-4 space-y-2">
+      <button onclick="scrollToSection('recommended'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 text-white hover:bg-lanna-dark rounded">เมนูแนะนำ</button>
+      <button onclick="scrollToSection('menu'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 text-white hover:bg-lanna-dark rounded">รายการอาหารทั้งหมด</button>
+      <button onclick="scrollToSection('contact'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 text-white hover:bg-lanna-dark rounded">ติดต่อเรา / แผนที่</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="hero" class="relative lanna-pattern text-white py-16 md:py-24 border-b-4 border-lanna-gold overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div class="inline-block border-y-2 border-lanna-gold px-6 py-1 mb-4">
+        <span class="font-lanna text-lanna-gold text-lg md:text-xl tracking-widest">ยินดีต้อนรับสู่ เรือนไทย กิตติ์เช่น</span>
+      </div>
+      <h2 class="font-lanna text-4xl sm:text-6xl md:text-7xl font-bold text-gold-gradient mb-4 drop-shadow-lg">Thai Kitchen</h2>
+      <p class="text-base sm:text-xl text-amber-100 max-w-2xl mx-auto font-light leading-relaxed mb-8">
+        สัมผัสรสชาติอาหารไทยแท้และฟิวชั่น บรรยากาศอบอุ่นตามวิถีล้านนา บริการอาหารคาว หวาน และเครื่องดื่มครบครัน
+      </p>
+      
+      <!-- Quick Info Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto bg-lanna-dark/80 backdrop-blur border border-lanna-gold/50 p-4 rounded-xl text-sm">
+        <div class="flex items-center justify-center space-x-2">
+          <i class="fa-regular fa-clock text-lanna-gold text-lg"></i>
+          <span>จ.-ศ. 11:00-21:00 | ส.-อา. 10:00-22:00</span>
+        </div>
+        <div class="flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-phone text-lanna-gold text-lg"></i>
+          <span>085-395-9665</span>
+        </div>
+        <div class="flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-location-dot text-lanna-gold text-lg"></i>
+          <span>สุขรุ่งเรือง มาร์เก็ต ทุ่งครุ</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+    <!-- Section 1: Recommended Dishes (เมนูแนะนำ) -->
+    <section id="recommended" class="scroll-mt-24">
+      <div class="text-center mb-8">
+        <h3 class="font-lanna text-3xl sm:text-4xl font-bold text-lanna-wood flex items-center justify-center gap-3">
+          <span class="h-0.5 w-12 bg-lanna-gold"></span>
+          เมนูแนะนำยอดนิยม
+          <span class="h-0.5 w-12 bg-lanna-gold"></span>
+        </h3>
+        <p class="text-gray-600 text-sm mt-1">คัดสรรวัตถุดิบชั้นดี รสชาติกลมกล่อม เอกลักษณ์เฉพาะ Thai Kitchen</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="recommended-container">
+        <!-- Javascript will render recommended items here -->
+      </div>
+    </section>
+
+    <!-- Section 2: All Menu & Filter (เมนูอาหารทั้งหมด) -->
+    <section id="menu" class="scroll-mt-24">
+      <div class="text-center mb-8">
+        <h3 class="font-lanna text-3xl sm:text-4xl font-bold text-lanna-wood flex items-center justify-center gap-3">
+          <span class="h-0.5 w-12 bg-lanna-gold"></span>
+          รายการอาหารทั้งหมด
+          <span class="h-0.5 w-12 bg-lanna-gold"></span>
+        </h3>
+        <p class="text-gray-600 text-sm mt-1">เลือกตามหมวดหมู่ที่คุณต้องการชิม</p>
+      </div>
+
+      <!-- Search & Category Filter Bar -->
+      <div class="bg-white p-4 rounded-xl shadow-md border border-lanna-gold/30 mb-8 space-y-4">
+        <!-- Search Input -->
+        <div class="relative max-w-md mx-auto">
+          <input type="text" id="search-input" oninput="filterMenu()" placeholder="ค้นหาชื่อเมนูอาหาร..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-lanna-gold text-sm">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-400"></i>
+        </div>
+
+        <!-- Category Buttons -->
+        <div class="flex flex-wrap justify-center gap-2" id="category-buttons">
+          <!-- Filter Buttons will be dynamically inserted -->
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="all-menu-container">
+        <!-- Javascript will render menu items here -->
+      </div>
+    </section>
+
+    <!-- Section 3: Contact & Info (ติดต่อเรา / สถานที่) -->
+    <section id="contact" class="scroll-mt-24 bg-white rounded-2xl shadow-xl border-2 border-lanna-gold overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <!-- Contact Info -->
+        <div class="p-8 bg-lanna-dark text-white flex flex-col justify-between">
+          <div>
+            <div class="inline-block border-b-2 border-lanna-gold pb-1 mb-4">
+              <span class="font-lanna text-lanna-gold text-xl">ข้อมูลการติดต่อ</span>
+            </div>
+            <h4 class="font-lanna text-3xl font-bold text-gold-gradient mb-6">Thai Kitchen</h4>
+            
+            <ul class="space-y-4 text-sm font-light text-amber-50/90">
+              <li class="flex items-start space-x-3">
+                <i class="fa-solid fa-location-dot text-lanna-gold text-lg mt-0.5"></i>
+                <span><strong>ที่อยู่:</strong> 888/2 ห้อง M10 สุขรุ่งเรือง มาร์เก็ต ถนนเลียบวงแหวนกาญจนาภิเษกฝั่งใต้ แขวงทุ่งครุ เขตทุ่งครุ กรุงเทพมหานคร 10140</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <i class="fa-solid fa-phone text-lanna-gold text-lg"></i>
+                <span><strong>เบอร์โทรศัพท์:</strong> 085-395-9665</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <i class="fa-brands fa-line text-lanna-gold text-lg"></i>
+                <span><strong>LINE:</strong> @thaikitchen</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <i class="fa-brands fa-facebook text-lanna-gold text-lg"></i>
+                <span><strong>Facebook:</strong> Thai Kitchen</span>
+              </li>
+              <li class="flex items-start space-x-3">
+                <i class="fa-regular fa-clock text-lanna-gold text-lg mt-0.5"></i>
+                <div>
+                  <strong>เวลาเปิด-ปิด ร้าน:</strong><br>
+                  • จันทร์ - ศุกร์: 11:00 - 21:00 น.<br>
+                  • เสาร์ - อาทิตย์: 10:00 - 22:00 น.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-lanna-gold/30 text-xs text-amber-200/70">
+            * จุดสังเกต: ใกล้โรงเรียนสวนกุหลาบ ธนบุรี / ถ.ประชาอุทิศ / ถ.เทียนทะเล
+          </div>
+        </div>
+
+        <!-- Delivery & QR Section -->
+        <div class="p-8 bg-lanna-cream flex flex-col justify-center items-center text-center space-y-6">
+          <h5 class="font-lanna text-2xl font-bold text-lanna-wood">สั่งอาหารหรือสอบถามผ่าน LINE</h5>
+          <div class="p-3 bg-white rounded-xl shadow-lg border-2 border-lanna-gold w-48 h-48 flex items-center justify-center">
+            <!-- Simulated QR Code SVG -->
+            <div class="w-full h-full bg-gray-900 rounded flex flex-col items-center justify-center text-white p-2">
+              <i class="fa-solid fa-qrcode text-6xl text-lanna-gold mb-2"></i>
+              <span class="text-xs font-bold text-amber-200">@thaikitchen</span>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 max-w-xs">
+            สแกนคิวอาร์โค้ดเพื่อแอดไลน์สั่งอาหาร สอบถามโปรโมชั่น หรือสำรองโต๊ะล่วงหน้า
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-lanna-dark text-white border-t-2 border-lanna-gold py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center text-sm font-light text-amber-100/70">
+      <p>© 2026 Thai Kitchen - เรือนอาหารไทย สไตล์ล้านนา. สงวนลิขสิทธิ์ทุกประการ.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Chatbot Widget -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <!-- Chat Toggle Button -->
+    <button onclick="toggleChat()" class="bg-lanna-wood hover:bg-lanna-woodlight border-2 border-lanna-gold text-lanna-gold p-4 rounded-full shadow-2xl flex items-center justify-center transition-transform transform hover:scale-110">
+      <i class="fa-solid fa-comments text-2xl"></i>
+    </button>
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border-2 border-lanna-gold flex flex-col overflow-hidden h-[450px]">
+      <!-- Chat Header -->
+      <div class="bg-lanna-dark text-white p-4 border-b border-lanna-gold flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-full bg-lanna-gold text-lanna-dark flex items-center justify-center font-bold">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <h5 class="font-lanna font-bold text-lg text-gold-gradient leading-tight">ผู้ช่วย Thai Kitchen</h5>
+            <span class="text-[10px] text-green-400 flex items-center gap-1">● พร้อมตอบคำถาม</span>
+          </div>
+        </div>
+        <button onclick="toggleChat()" class="text-amber-200 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Chat Messages Body -->
+      <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3 bg-lanna-cream text-sm">
+        <div class="bg-white border border-lanna-gold/30 p-3 rounded-lg max-w-[85%] text-gray-800 shadow-sm">
+          สวัสดีเจ้า! ยินดีต้อนรับสู่ **Thai Kitchen** มีข้อสงสัยเรื่องเมนู เวลาเปิดปิด หรือตำแหน่งร้าน สอบถามน้องได้เลยเจ้า 😊
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-3 bg-white border-t border-gray-200 flex items-center space-x-2">
+        <input type="text" id="chat-input" onkeypress="handleChatKey(event)" placeholder="พิมพ์ข้อความสอบถาม..." class="flex-grow border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-lanna-gold">
+        <button onclick="sendChatMessage()" class="bg-lanna-wood text-lanna-gold border border-lanna-gold w-9 h-9 rounded-full flex items-center justify-center hover:bg-lanna-primary transition">
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-lanna-gold max-w-lg w-full overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="bg-lanna-dark text-white p-4 border-b border-lanna-gold flex justify-between items-center">
+        <h4 class="font-lanna text-xl font-bold text-gold-gradient flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping"></i> รายการอาหารของคุณ
+        </h4>
+        <button onclick="toggleCartModal()" class="text-amber-200 hover:text-white">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <div id="cart-items-container" class="flex-grow p-4 overflow-y-auto divide-y divide-gray-100">
+        <!-- Cart Items JS Rendered -->
+      </div>
+
+      <div class="p-4 bg-lanna-cream border-t border-lanna-gold/30 space-y-3">
+        <div class="flex justify-between font-bold text-lg text-lanna-wood">
+          <span>ราคารวมทั้งหมด:</span>
+          <span id="cart-total-price" class="text-lanna-gold">0.-</span>
+        </div>
+        <button onclick="checkoutCart()" class="w-full bg-lanna-wood hover:bg-lanna-woodlight border border-lanna-gold text-lanna-gold font-bold py-3 rounded-xl transition shadow">
+          ยืนยันการสั่งซื้อ (แจ้งผ่าน LINE)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Database Menu Items (แปลงจากไฟล์ PDF เมนูทั้งหมดของร้าน Thai Kitchen)
+    const menuData = [
+      // Recommended Section
+      { id: 1, name: "กุ้งสาดดด", category: "เมนูแนะนำ", price: 399, isRecommended: true, desc: "ไซส์ธรรมดา 399.- / XL 599.-" },
+      { id: 2, name: "สเต็กปลาแซลมอน", category: "เมนูแนะนำ", price: 300, isRecommended: true, desc: "แซลมอนย่างเสิร์ฟพร้อมสลัดผักและเฟรนช์ฟรายส์" },
+      { id: 3, name: "มาม่าหม้อไฟต้มยำทะเล", category: "เมนูแนะนำ", price: 300, isRecommended: true, desc: "จัดเต็มซีฟู้ดสดๆ น้ำต้มยำเข้มข้น" },
+      { id: 4, name: "ขาหมูเยอรมัน", category: "เมนูแนะนำ", price: 399, isRecommended: true, desc: "ขาหมูกรอบนอกนุ่มใน น้ำจิ้มซีฟู้ดและแจ่ว" },
+      { id: 5, name: "พอร์คชอป", category: "เมนูแนะนำ", price: 289, isRecommended: true, desc: "สเต็กหมูพอร์คชอปเนื้อนุ่มซอสเกรวี่" },
+      { id: 6, name: "ข้าวไข่ข้นราดซอสต้มยำกุ้ง", category: "เมนูแนะนำ", price: 180, isRecommended: true, desc: "ไข่ข้นนุ่มๆ ราดซอสต้มยำกุ้งรสแซ่บ" },
+
+      // Spaghetti & Salad
+      { id: 7, name: "สปาเก็ตตี้คาโบนาร่าแฮม-เบคอน", category: "สปาเก็ตตี้ & สลัด", price: 130, isRecommended: false },
+      { id: 8, name: "สปาเก็ตตี้คาโบนาร่า", category: "สปาเก็ตตี้ & สลัด", price: 120, isRecommended: false },
+      { id: 9, name: "สปาเก็ตตี้ผัดขี้เมา (ทะเล/แซลมอน)", category: "สปาเก็ตตี้ & สลัด", price: 150, isRecommended: false },
+      { id: 10, name: "สปาเก็ตตี้ผัดพริกแห้งแฮม-เบคอน", category: "สปาเก็ตตี้ & สลัด", price: 120, isRecommended: false },
+      { id: 11, name: "สลัดทูน่า", category: "สปาเก็ตตี้ & สลัด", price: 150, isRecommended: false },
+      { id: 12, name: "สลัดผัก-ไข่ต้ม", category: "สปาเก็ตตี้ & สลัด", price: 120, isRecommended: false },
+
+      // Steak
+      { id: 13, name: "ขาหมูเยอรมันคุโรบูตะ", category: "สเต็ก", price: 550, isRecommended: false },
+      { id: 14, name: "สเต็กปลากระพงทอด", category: "สเต็ก", price: 260, isRecommended: false },
+      { id: 15, name: "สเต็กเนื้อ", category: "สเต็ก", price: 260, isRecommended: false },
+      { id: 16, name: "สเต็กหมูพริกไทยดำ", category: "สเต็ก", price: 189, isRecommended: false },
+      { id: 17, name: "สเต็กไก่พริกไทยดำ", category: "สเต็ก", price: 180, isRecommended: false },
+
+      // Yum & Spicy
+      { id: 18, name: "ยำถั่วพู", category: "เมนูยำ", price: 150, isRecommended: true, desc: "รสเข้มข้น มะพร้าวคั่วและไข่ต้ม" },
+      { id: 19, name: "เห่าดง", category: "เมนูยำ", price: 130, isRecommended: true, desc: "หมูลวกใบโหระพารสเผ็ดจัดจ้าน" },
+      { id: 20, name: "ยำวุ้นเส้นทะเลรวมมิตร", category: "เมนูยำ", price: 220, isRecommended: false },
+      { id: 21, name: "ยำผักบุ้งทอดกรอบ", category: "เมนูยำ", price: 160, isRecommended: false },
+      { id: 22, name: "ยำหมูกรอบ", category: "เมนูยำ", price: 180, isRecommended: false },
+
+      // Snack
+      { id: 23, name: "คางกุ้งทอด", category: "ทานเล่น", price: 70, isRecommended: false },
+      { id: 24, name: "โดนัทกุ้ง", category: "ทานเล่น", price: 150, isRecommended: false },
+      { id: 25, name: "ปอเปี๊ยะขลุ่ยกุ้ง", category: "ทานเล่น", price: 150, isRecommended: false },
+      { id: 26, name: "ขนมปังหน้ากุ้ง", category: "ทานเล่น", price: 80, isRecommended: false },
+      { id: 27, name: "คาลามารี (ปลาหมึกชุบแป้งทอด)", category: "ทานเล่น", price: 150, isRecommended: false },
+
+      // Main Course & Curry
+      { id: 28, name: "ห่อหมกทะเลมะพร้าวอ่อน", category: "เมนูจานหลัก", price: 250, isRecommended: true },
+      { id: 29, name: "หมูสามชั้นทอดน้ำปลา", category: "เมนูจานหลัก", price: 150, isRecommended: true },
+      { id: 30, name: "ปลากะพงเจ้าสัว", category: "เมนูจานหลัก", price: 220, isRecommended: false },
+      { id: 31, name: "ปลาหมึกผัดไข่เค็ม", category: "เมนูจานหลัก", price: 230, isRecommended: false },
+      { id: 32, name: "ต้มยำกุ้งน้ำข้น", category: "เมนูจานหลัก", price: 220, isRecommended: false },
+      { id: 33, name: "แกงส้มผักรวมกุ้ง", category: "เมนูจานหลัก", price: 180, isRecommended: false },
+      { id: 34, name: "แกงเหลืองไหลบัวกุ้ง", category: "เมนูจานหลัก", price: 180, isRecommended: false },
+      { id: 35, name: "ลาบแซลมอน", category: "เมนูจานหลัก", price: 260, isRecommended: false },
+      { id: 36, name: "ไก่ผัดเม็ดมะม่วงหิมพานต์", category: "เมนูจานหลัก", price: 160, isRecommended: false },
+
+      // Fast Food
+      { id: 37, name: "ผัดไทยกุ้งสดห่อไข่", category: "จานด่วน", price: 120, isRecommended: true },
+      { id: 38, name: "ข้าวผัดปลาทู", category: "จานด่วน", price: 90, isRecommended: false },
+      { id: 39, name: "มาม่าผัดขี้เมากุ้ง", category: "จานด่วน", price: 110, isRecommended: false },
+      { id: 40, name: "ข้าวไข่ข้นกุ้ง", category: "จานด่วน", price: 100, isRecommended: false },
+
+      // Isan
+      { id: 41, name: "ตำไทยไข่เค็ม", category: "เมนูอีสาน", price: 80, isRecommended: false },
+      { id: 42, name: "ตำผลไม้รวม", category: "เมนูอีสาน", price: 150, isRecommended: false },
+      { id: 43, name: "น้ำตกคอหมูย่าง", category: "เมนูอีสาน", price: 150, isRecommended: false },
+
+      // Dessert & Drink
+      { id: 44, name: "บิงซูชาไทย S/L", category: "ของหวาน", price: 189, isRecommended: true, desc: "ไซส์ S 189.- / ไซส์ L 229.-" },
+      { id: 45, name: "บัวลอยเผือก", category: "ของหวาน", price: 45, isRecommended: false },
+      { id: 46, name: "เฉาก๊วย", category: "ของหวาน", price: 30, isRecommended: false }
+    ];
+
+    let cart = [];
+    let selectedCategory = "ทั้งหมด";
+
+    // Application Init
+    document.addEventListener("DOMContentLoaded", () => {
+      renderRecommended();
+      renderCategoryButtons();
+      renderAllMenu();
+    });
+
+    // Render Recommended Section
+    function renderRecommended() {
+      const container = document.getElementById("recommended-container");
+      const recItems = menuData.filter(item => item.isRecommended);
+
+      container.innerHTML = recItems.map(item => `
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-lanna-gold/40 hover:shadow-2xl transition group flex flex-col justify-between">
+          <div>
+            <div class="h-44 bg-lanna-dark/10 flex items-center justify-center p-4 relative overflow-hidden">
+              <i class="fa-solid fa-bowl-food text-6xl text-lanna-wood/40 group-hover:scale-110 transition duration-300"></i>
+              <span class="absolute top-3 right-3 bg-lanna-gold text-lanna-dark font-bold text-xs px-2.5 py-1 rounded-full shadow">
+                เมนูแนะนำ
+              </span>
+            </div>
+            <div class="p-5">
+              <h4 class="font-lanna text-xl font-bold text-lanna-wood mb-1">${item.name}</h4>
+              <p class="text-xs text-gray-500 mb-3">${item.desc || 'รสชาติเด็ด สดใหม่ตามสูตรของร้าน'}</p>
+            </div>
+          </div>
+          <div class="px-5 pb-5 flex items-center justify-between border-t border-gray-100 pt-3">
+            <span class="font-bold text-lg text-lanna-primary">${item.price}.-</span>
+            <button onclick="addToCart(${item.id})" class="bg-lanna-wood hover:bg-lanna-woodlight text-lanna-gold px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition">
+              <i class="fa-solid fa-plus"></i> สั่งอาหาร
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render Category Buttons
+    function renderCategoryButtons() {
+      const categories = ["ทั้งหมด", ...new Set(menuData.map(item => item.category))];
+      const container = document.getElementById("category-buttons");
+
+      container.innerHTML = categories.map(cat => `
+        <button onclick="selectCategory('${cat}')" class="px-4 py-1.5 rounded-full text-xs font-medium transition ${selectedCategory === cat ? 'bg-lanna-wood text-lanna-gold border border-lanna-gold shadow' : 'bg-lanna-cream text-gray-700 hover:bg-lanna-primary hover:text-white'}">
+          ${cat}
+        </button>
+      `).join('');
+    }
+
+    // Select Category
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      renderCategoryButtons();
+      renderAllMenu();
+    }
+
+    // Render All Menu Grid
+    function renderAllMenu() {
+      const container = document.getElementById("all-menu-container");
+      const searchQuery = document.getElementById("search-input").value.toLowerCase();
+
+      const filtered = menuData.filter(item => {
+        const matchesCategory = (selectedCategory === "ทั้งหมด" || item.category === selectedCategory);
+        const matchesSearch = item.name.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-12 text-gray-500">
+            <i class="fa-solid fa-magnifying-glass text-4xl mb-3 text-lanna-wood/40"></i>
+            <p>ไม่พบรายการอาหารที่คุณค้นหา</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:border-lanna-gold transition flex flex-col justify-between">
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-[10px] bg-lanna-cream text-lanna-wood font-medium px-2 py-0.5 rounded border border-lanna-gold/30">
+                ${item.category}
+              </span>
+              <span class="font-bold text-lanna-primary">${item.price}.-</span>
+            </div>
+            <h5 class="font-bold text-gray-800 text-sm mb-1">${item.name}</h5>
+            ${item.desc ? `<p class="text-[11px] text-gray-500 line-clamp-2">${item.desc}</p>` : ''}
+          </div>
+          <div class="px-4 pb-4">
+            <button onclick="addToCart(${item.id})" class="w-full bg-lanna-cream hover:bg-lanna-wood hover:text-lanna-gold text-lanna-wood border border-lanna-gold/50 py-1.5 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1">
+              <i class="fa-solid fa-cart-plus"></i> เพิ่มในตะกร้า
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Filter Menu Search
+    function filterMenu() {
+      renderAllMenu();
+    }
+
+    // Cart Management
+    function addToCart(id) {
+      const item = menuData.find(m => m.id === id);
+      const cartItem = cart.find(c => c.id === id);
+
+      if (cartItem) {
+        cartItem.qty += 1;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+
+      updateCartUI();
+    }
+
+    function updateCartQty(id, delta) {
+      const cartItem = cart.find(c => c.id === id);
+      if (cartItem) {
+        cartItem.qty += delta;
+        if (cartItem.qty <= 0) {
+          cart = cart.filter(c => c.id !== id);
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById("cart-count");
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      countEl.innerText = totalCount;
+
+      // Update Modal
+      const container = document.getElementById("cart-items-container");
+      const totalPriceEl = document.getElementById("cart-total-price");
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-gray-400">
+            <i class="fa-solid fa-basket-shopping text-4xl mb-2"></i>
+            <p>ไม่มีรายการอาหารในตะกร้า</p>
+          </div>
+        `;
+        totalPriceEl.innerText = "0.-";
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = cart.map(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+
+        return `
+          <div class="py-3 flex items-center justify-between">
+            <div class="pr-2">
+              <h6 class="font-bold text-sm text-gray-800">${item.name}</h6>
+              <span class="text-xs text-gray-500">${item.price}.- x ${item.qty}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="updateCartQty(${item.id}, -1)" class="w-6 h-6 rounded bg-gray-200 text-gray-700 font-bold text-xs hover:bg-gray-300">-</button>
+              <span class="text-sm font-bold w-4 text-center">${item.qty}</span>
+              <button onclick="updateCartQty(${item.id}, 1)" class="w-6 h-6 rounded bg-lanna-wood text-lanna-gold font-bold text-xs hover:bg-lanna-woodlight">+</button>
+              <span class="font-bold text-sm text-lanna-primary ml-2 min-w-[50px] text-right">${itemTotal}.-</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      totalPriceEl.innerText = `${total}.-`;
+    }
+
+    function toggleCartModal() {
+      const modal = document.getElementById("cart-modal");
+      modal.classList.toggle("hidden");
+    }
+
+    function checkoutCart() {
+      if (cart.length === 0) {
+        alert("กรุณาเลือกรายการอาหารก่อนทำการสั่งซื้อ");
+        return;
+      }
+      alert("ระบบกำลังนำคุณไปยัง LINE @thaikitchen เพื่อส่งรายการอาหารที่เลือก!");
+      cart = [];
+      updateCartUI();
+      toggleCartModal();
+    }
+
+    // Scroll Helper
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      menu.classList.toggle("hidden");
+    }
+
+    // Chatbot Logic
+    function toggleChat() {
+      const chatWin = document.getElementById("chat-window");
+      chatWin.classList.toggle("hidden");
+    }
+
+    function handleChatKey(e) {
+      if (e.key === 'Enter') sendChatMessage();
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById("chat-input");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      const chatBody = document.getElementById("chat-messages");
+
+      // Render User Message
+      chatBody.innerHTML += `
+        <div class="flex justify-end">
+          <div class="bg-lanna-wood text-lanna-gold p-3 rounded-lg max-w-[85%] text-sm shadow">
+            ${msg}
+          </div>
+        </div>
+      `;
+
+      input.value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Simulated Bot Reply
+      setTimeout(() => {
+        let reply = "ขออภัยเจ้า น้องแชทบอทยังไม่ค่อยเข้าใจคำถาม ลองสอบถามเรื่อง 'เวลาเปิดปิด', 'เบอร์โทร', 'เมนูแนะนำ' หรือ 'ที่อยู่ร้าน' ได้เลยเจ้า!";
+
+        const lowerMsg = msg.toLowerCase();
+        if (lowerMsg.includes("เปิด") || lowerMsg.includes("ปิด") || lowerMsg.includes("เวลา")) {
+          reply = "ร้าน Thai Kitchen เปิดบริการ จันทร์-ศุกร์ 11:00-21:00 น. และ เสาร์-อาทิตย์ 10:00-22:00 น. เจ้า";
+        } else if (lowerMsg.includes("ที่อยู่") || lowerMsg.includes("ตำแหน่ง") || lowerMsg.includes("แผนที่") || lowerMsg.includes("ไปทางไหน")) {
+          reply = "ร้านตั้งอยู่ที่ 888/2 ห้อง M10 สุขรุ่งเรือง มาร์เก็ต ถนนเลียบวงแหวนกาญจนาภิเษกฝั่งใต้ ทุ่งครุ กรุงเทพฯ เจ้า";
+        } else if (lowerMsg.includes("เบอร์") || lowerMsg.includes("โทร") || lowerMsg.includes("ติดต่อ")) {
+          reply = "สามารถติดต่อสอบถามหรือจองโต๊ะได้ที่เบอร์ 085-395-9665 ได้เลยเจ้า";
+        } else if (lowerMsg.includes("แนะนำ") || lowerMsg.includes("อร่อย")) {
+          reply = "เมนูแนะนำประจำร้านได้แก่ กุ้งสาดดด, สเต็กปลาแซลมอน, ขาหมูเยอรมัน, ห่อหมกทะเลมะพร้าวอ่อน และข้าวไข่ข้นราดซอสต้มยำกุ้งเจ้า!";
+        }
+
+        chatBody.innerHTML += `
+          <div class="bg-white border border-lanna-gold/30 p-3 rounded-lg max-w-[85%] text-gray-800 shadow-sm">
+            ${reply}
+          </div>
+        `;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 600);
+    }
+  </script>
+</body>
+</html>
+
+    <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="bTz0S2uekX7ARf7cSkBat";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+   </body>
+  </html>
